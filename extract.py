@@ -14,6 +14,7 @@ You'll edit this file in Task 2.
 """
 import csv
 import json
+import pandas as pd
 
 from models import NearEarthObject, CloseApproach
 
@@ -25,6 +26,9 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s.
     """
     # TODO: Load NEO data from the given CSV file.
+    neo_df = pd.read_csv(neo_csv_path)
+    print(neo_df.head())
+            
     return ()
 
 
