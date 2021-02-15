@@ -34,7 +34,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, approaches, designation:str = '', name:str = None, 
+    def __init__(self, designation:str = '', name:str = None, 
                 diameter:float = float('nan'), hazardous:bool = False):
         """Create a new `NearEarthObject`.
 
@@ -88,7 +88,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, time:str, distance:float, velocity:float, neo:NearEarthObject = None):
+    def __init__(self, designation:str, time:str, distance:float, velocity:float, neo:NearEarthObject = None):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.

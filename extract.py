@@ -15,6 +15,7 @@ You'll edit this file in Task 2.
 import csv
 import json
 import pandas as pd
+import time
 
 from models import NearEarthObject, CloseApproach
 
@@ -25,11 +26,39 @@ def load_neos(neo_csv_path):
     :param neo_csv_path: A path to a CSV file containing data about near-Earth objects.
     :return: A collection of `NearEarthObject`s.
     """
-    # TODO: Load NEO data from the given CSV file.
-    neo_df = pd.read_csv(neo_csv_path)
-    print(neo_df.head())
+    neos = []
+    with open(neo_csv_path, 'r') as f:
+        reader = csv.reader(f)
+        next(reader) #skip header
+        for row in reader:
+            designation = row[3]
+            name = row[2]
+            hazardous = row[7]
+            diameter = row[15]
+            if designation == '' or designation is None:
+                designation = ''
+            if name == '' or name is None:
+                name = ''
+            if diameter == '' or diameter is None:
+                diameter = float('nan')
+            else:
+                diameter = float(diameter)
+            if hazardous == 'N':
+                hazardous = False
+            else:
+                hazardous = True
+            neos.append(NearEarthObject(designation=designation,
+                                        name=name,
+                                        diameter=diameter,
+                                        hazardous=hazardous))
+    return neos
             
-    return ()
+## To get basic info about data, in prod environment I would use pandas instead of built-in libraries.
+#     neo_df = pd.read_csv(neo_csv_path)
+#     pd.set_option('display.max_columns', None)
+#     print(neo_df.head()) 
+
+            
 
 
 def load_approaches(cad_json_path):
@@ -38,5 +67,25 @@ def load_approaches(cad_json_path):
     :param neo_csv_path: A path to a JSON file containing data about close approaches.
     :return: A collection of `CloseApproach`es.
     """
-    # TODO: Load close approach data from the given JSON file.
-    return ()
+    caps = []
+    with open(cad_json_path, 'r') as f:
+        data = json.load(f)
+        for item in data['data']:
+            designation = item[0]
+            time = item[3]
+            distance = item[4]
+            velocity = item[7]
+            if distance is not None and distance != '':
+                distance = float(distance)
+            else:
+                distance = float('nan')
+                
+            if velocity is not None and velocity != '':
+                velocity = float(velocity)
+            else:
+                velocity = float('nan')
+            caps.append(CloseApproach(designation=designation,
+                                      time=time,
+                                      distance=distance,
+                                      velocity=velocity))
+    return caps
