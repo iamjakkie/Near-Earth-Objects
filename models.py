@@ -32,19 +32,13 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, designation:str = '', name:str = None, 
                 diameter:float = float('nan'), hazardous:bool = False):
         """Create a new `NearEarthObject`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
-        # You should coerce these values to their appropriate data type and
-        # handle any edge cases, such as a empty name being represented by `None`
-        # and a missing diameter being represented by `float('nan')`.
         
         if name == '':
             name = None
@@ -100,8 +94,6 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, time:str, distance:float, velocity:float, designation:str=''):
         """Create a new `CloseApproach`.
 
@@ -134,7 +126,7 @@ class CloseApproach:
     def __str__(self):
         """Return `str(self)`."""
 
-        return f"On {self.time}, '{'Unknown object' if self.neo is None else {self.neo.destination} ({self.neo.name}) }' approaches Earth at a distance of {self.distance} au and a velocity of {self.velocity}"
+        return f"On {self.time_str}, {self.neo} approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
